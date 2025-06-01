@@ -19,6 +19,9 @@ import { LoginDto } from './dto/login.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiOperation({ summary: 'User signup' })
+  @ApiResponse({ status: 200, description: 'User created successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid credentials' })
   @Post('signup')
   async signup(@Body() createUserDto: CreateUserDto) {
     try {

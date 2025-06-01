@@ -282,7 +282,7 @@ model sso_providers {
 /// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
 model users {
   instance_id                 String?           @db.Uuid
-  id                          String            @id @default(uuid())
+  id                          String            @id @default(uuid()) @db.Uuid
   aud                         String?           @db.VarChar(255)
   role                        String?           @db.VarChar(255)
   email                       String?           @db.VarChar(255)
@@ -343,8 +343,8 @@ model Team {
   id        String       @id @default(uuid())
   name      String
   createdAt DateTime     @default(now())
-  members   TeamMember[]
   projects  Project[]
+  members   TeamMember[]
 
   @@schema("public")
 }
@@ -353,21 +353,21 @@ model Project {
   id        String   @id @default(uuid())
   name      String
   teamId    String
-  team      Team     @relation(fields: [teamId], references: [id])
   createdAt DateTime @default(now())
+  team      Team     @relation(fields: [teamId], references: [id])
 
   @@schema("public")
 }
 
 model TeamMember {
   id        String   @id @default(uuid())
-  userId    String // Supabase Auth User ID
+  userId    String
   teamId    String
-  team      Team     @relation(fields: [teamId], references: [id])
-  role      String // e.g., "admin", "member"
+  role      String
   createdAt DateTime @default(now())
+  team      Team     @relation(fields: [teamId], references: [id])
 
-  @@unique([userId, teamId]) // user can only join a team once
+  @@unique([userId, teamId])
   @@schema("public")
 }
 

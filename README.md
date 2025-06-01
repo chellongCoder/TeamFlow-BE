@@ -241,3 +241,43 @@ The application includes the following key features:
 7. **External Integrations**
    - GitHub issues import
    - Slack messaging
+
+# Chat Module
+
+A comprehensive real-time chat system built with NestJS, WebSockets, and Supabase, featuring end-to-end security and scalability.
+
+## Table of Contents
+
+1. [Architecture Overview](#architecture-overview)
+2. [Database Schema](#database-schema)
+3. [Security Features](#security-features)
+4. [Implementation Steps](#implementation-steps)
+5. [API Documentation](#api-documentation)
+6. [Client Integration](#client-integration)
+7. [Configuration](#configuration)
+8. [Deployment](#deployment)
+
+## Architecture Overview
+
+The chat system follows a layered architecture pattern:
+┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
+│ Client Apps │ │ Mobile Apps │ │ Web Apps │
+└─────────────────┘ └─────────────────┘ └─────────────────┘
+│ │ │
+└───────────────────────┼───────────────────────┘
+│
+┌─────────────────┐
+│ Load Balancer │
+└─────────────────┘
+│
+┌─────────────────┐
+│ NestJS Server │
+│ (WebSocket) │
+└─────────────────┘
+│
+┌───────────────────────┼───────────────────────┐
+│ │ │
+┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
+│ Supabase DB │ │ Redis Cache │ │ File Storage │
+│ (PostgreSQL) │ │ (Rate Limiting) │ │ (Messages) │
+└─────────────────┘ └─────────────────┘ └─────────────────┘
